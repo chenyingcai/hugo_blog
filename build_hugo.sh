@@ -9,7 +9,7 @@ if [ "$(docker images -q $DOCKER_NAME 2> /dev/null)" == "" ]; then
   wget https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
   tar xf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
   mv hugo_${HUGO_VERSION}_linux_amd64/hugo_${HUGO_VERSION}_linux_amd64 hugo
-  echo -e "#! /bin/sh\nhugo server --baseURL=$BASE_URL --bind=0DD0.0.0 --appendPort=false" > run.sh
+  echo -e "#! /bin/sh\nhugo server --baseURL=$BASE_URL --bind=0.0.0.0 --appendPort=false" > run.sh
   echo "开始创建$DOCKER_NAME容器"
   docker build -t $DOCKER_NAME -f Dockerfile_hugo
   echo "删除临时文档"
