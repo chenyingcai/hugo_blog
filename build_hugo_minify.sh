@@ -1,5 +1,5 @@
 #! /bin/sh
-DOCKER_NAME='chenyingcai/hugo_busybox_minify:v1'
+DOCKER_NAME='chenyingcai/hugo_minify:v1'
 if [ "$(docker images -q $DOCKER_NAME 2> /dev/null)" == "" ]; then
   echo "没有找到$DOCKER_NAME容器"
   echo "----------------------------------------------"
