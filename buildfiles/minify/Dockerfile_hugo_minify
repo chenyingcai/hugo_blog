@@ -1,5 +1,5 @@
 FROM mhart/alpine-node
-ENV BASE_URL=localhost:8000/
+ENV BASE_URL=localhost:8000
 COPY . /work
 RUN cd /work && npm install && \
     apk add --no-cache hugo && \

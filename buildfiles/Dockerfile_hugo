@@ -1,5 +1,5 @@
 FROM busybox
-ENV BASE_URL=localhost:8000/
+ENV BASE_URL=localhost:8000
 WORKDIR /hugo
 ADD hugo run.sh /bin/
 CMD ["run.sh"]
