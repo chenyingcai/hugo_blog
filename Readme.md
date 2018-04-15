@@ -167,3 +167,7 @@ alias hugo= "docker exec hugoimg hugo"
 
 ### 4.3 获取模板和demo 网页
 在`hugo_demo:v1`镜像中我们还加入了一个`democopy.sh`命令, 通过这个命令将容器中存储的demo site 复制到容器的工作目录`/hugo/`并因为4.1. 中的启动容器的命令中所做的在创建容器的同时还挂载了工作目录到本地, 因而我们可以修改demo的内容.
+```sh
+docker exec hugoimg democopy.sh
+```
+
