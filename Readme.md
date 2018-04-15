@@ -170,4 +170,3 @@ alias hugo= "docker exec hugoimg hugo"
 ```sh
 docker exec hugoimg democopy.sh
 ```
-
