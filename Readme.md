@@ -164,5 +164,24 @@ docker run -itd --rm --name hugoimg -p 8000:1313 -v $PWD/$REPONAME:/hugo/ hugo_d
 我们通过alias命令定制我们会经常重复使用的docker exec 的命令
 ```sh
 alias hugo= "docker exec hugoimg hugo"
+alias hugoimg="docker exec hugoimg"
 ```
 这样, 我们就可以像在本地宿主机安装了hugo一样, 正常使用hugo进行各类操作了
+
+### 4.3 打开预览
+
+1. 使用/bin中的run.sh文档
+
+```sh
+hugoimg /bin/sh /bin/run.sh
+```
+
+2. 直接使用hugo server
+
+```sh
+hugo server --bind=0.0.0.0 --baseURL=localhost:1313 --appendPort=false
+```
+# 注意: 
+  我们在发布public的时候, 如果直接使用`hugo`命令, 可能会造成发布的网页出现混乱, 也就是, 我们直接用浏览器浏览public下的index.html, 会发现与我们上一步通过hugo server 服务器并在浏览器中查看到的网页, 两者是不一样的, 造成这个结果的原因是,在config.toml 中, 我们设定的baseURL=https://example.com有关, 那么我们在本地预览时应该改为对应的本地宿主机的URL, 这里我们设定为localhost:8000, 而在我们要发布到自己的github page时, 应该改为自己的网页, 这里我设定自己的网页地址:https://chenyingcai.github.io/, 然后再hugo 构建public, 最后上传github
+
+**一个比较合适的方法是: 将config.toml中的baseURL="https://chenyingcai.github.io/" , 预览自己的草稿时, 直接使用hugo server --baseURL=localhost:8000等等构建预览**
