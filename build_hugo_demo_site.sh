@@ -23,6 +23,7 @@ else
   echo $SPERA
 fi
 echo "下载主题"
+echo "注意: 使用SVN可以下载指定文件夹而不用克隆整个项目"
 svn checkout https://github.com/chenyingcai/hugo_blog/trunk/tranquilpeak $PWD/resource/
 echo "下载demo文档"
 svn checkout https://github.com/chenyingcai/hugo_blog/tree/master/exampleSite $PWD/resource/
