@@ -152,11 +152,13 @@ docker exec hugoimg hugo new posts/my-first-post.md
 
 这里我们运行`build_hugo_demo.sh`, 之后我们会创建一个`hugo_demo:v1`的镜像,如果之前没有构建`hugo:v1`镜像, 那么我们会自动的将其创建并构建我们上述需要的镜像, 其实这两个镜像之间的不同仅仅是, 我们`hugo_demo:v1`镜像增加了demo博客所需要的内容, 这里我们使用的博客样板是**[hugo-tranquilpeak-theme](https://tranquilpeak.kakawait.com/)**
 
-### 4.1. 启动容器`hugo_demo:v1`
-创建完镜像之后我们通过下面的命令来启动容器
+### 4.1. 启动容器`hugo_demo:v1` 同时获取模板
+创建完镜像之后我们通过下面的命令来启动容器, 在`hugo_demo:v1`镜像中我们还加入了一个`democopy.sh`命令, 通过这个命令将容器中存储的demo site 复制到容器的工作目录`/hugo/`并因为4.1. 中的启动容器的命令中所做的在创建容器的同时还挂载了工作目录到本地, 因而我们可以修改demo的内容.
 ```sh
-docker run -itd --rm --name hugoimg -p 8000:1313 -v $PWD/$REPONAME:/hugo/ hugo_demo:v1
+docker run -itd --rm --name hugoimg -p 8000:1313 -v $PWD/$REPONAME:/hugo/ hugo_demo:v1 democopy.sh
 ```
+# 注意: 
+如果上述命令如果后面那一个democopy.sh没有加上, 容器很可能因为加上了选项`--rm`而容器在启动后立即就停止退出了
 
 ### 4.2 创建alias命令
 我们通过alias命令定制我们会经常重复使用的docker exec 的命令
@@ -164,9 +166,3 @@ docker run -itd --rm --name hugoimg -p 8000:1313 -v $PWD/$REPONAME:/hugo/ hugo_d
 alias hugo= "docker exec hugoimg hugo"
 ```
 这样, 我们就可以像在本地宿主机安装了hugo一样, 正常使用hugo进行各类操作了
-
-### 4.3 获取模板和demo 网页
-在`hugo_demo:v1`镜像中我们还加入了一个`democopy.sh`命令, 通过这个命令将容器中存储的demo site 复制到容器的工作目录`/hugo/`并因为4.1. 中的启动容器的命令中所做的在创建容器的同时还挂载了工作目录到本地, 因而我们可以修改demo的内容.
-```sh
-docker exec hugoimg democopy.sh
-```
