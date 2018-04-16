@@ -170,7 +170,7 @@ archetypes  config.toml  content  data  layouts  public  static  themes
 ```sh
 alias hugopre="docker exec -it --rm -p 8000:8000 -v $PWD:/hugo/ chenyingcai/hugo_demo:v1 hugo server --bind=0.0.0.0 --baseURL=localhost:8000 --appendPort=false"
 ```
-然后通过`hugopre`并打开[localhost:8000](localhost:8000) 预览草稿
+然后通过`hugopre`并打开 [https://localhost:8000](https://localhost:8000) 预览草稿
 
 设定发布命令
 ```sh
