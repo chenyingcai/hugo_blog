@@ -171,7 +171,7 @@ archetypes  config.toml  content  data  layouts  public  static  themes
 alias hugopre="docker run -it --rm -p 8000:1313 -v $PWD:/hugo/ chenyingcai/hugo_demo:v1 hugo server --bind=0.0.0.0 --baseURL=localhost:8000 --appendPort=false"
 ```
 **注意**: 是**`-p 8000:1313`** 一定是本地宿主机8000映射docker 镜像 的 1313
-然后通过`hugopre`并打开 [localhost:8000](localhost:8000) 预览草稿
+然后通过`hugopre`并打开 [localhost:8000/](localhost:8000/) 预览草稿
 
 设定发布命令
 ```sh
