@@ -161,12 +161,22 @@ docker run -itd --rm --name hugoimg -p 8000:1313 -v $PWD/$REPONAME:/hugo/ hugo_d
 如果上述命令如果后面那一个democopy.sh没有加上, 容器很可能因为加上了选项`--rm`而容器在启动后立即就停止退出了
 
 ### 4.2 创建alias命令
-我们通过alias命令定制我们会经常重复使用的docker exec 的命令
+之后我们有了模板了之后, `cd` 进入相关的对应的工作区, 工作区大概是这样
 ```sh
-alias hugo= "docker exec hugoimg hugo"
-alias hugoimg="docker exec hugoimg"
+hugoblog$  ls
+archetypes  config.toml  content  data  layouts  public  static  themes
 ```
-这样, 我们就可以像在本地宿主机安装了hugo一样, 正常使用hugo进行各类操作了
+然后设定 草稿预览命令
+```sh
+alias hugopre="docker exec -it --rm -p 8000:8000 -v $PWD:/hugo/ chenyingcai/hugo_demo:v1 hugo server --bind=0.0.0.0 --baseURL=localhost:8000 --appendPort=false"
+```
+然后通过`hugopre`并打开[localhost:8000](localhost:8000) 预览草稿
+
+设定发布命令
+```sh
+alias hugobuild="docker exec -it --rm -p 8000:8000 -v $PWD:/hugo/ chenyingcai/hugo_demo:v1 hugo"
+```
+通过`hugobuild` 发布到`public`中
 
 ### 4.3 打开预览
 
