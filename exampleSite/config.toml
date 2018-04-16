@@ -15,7 +15,7 @@
 baseURL = "https://chenyingcai.github.io/"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
-title = "Hugo tranquilpeak theme"
+title = "Welcome to CHEN's Blog"
 theme = "tranquilpeak"
 disqusShortname = "hugo-tranquilpeak-theme"
 # googleAnalytics = "UA-123-45"
@@ -32,11 +32,11 @@ canonifyurls = true
 
 [author]
   name = "CHEN Yingcai"
-  bio = "Super bio with markdown support **COOL**"
-  job = "Your job title"
+  bio = "I'm searching a **JOB**! Check [My Resume](https://chenyingcai.github.io/resume/)"
+  job = "Jeune diplome"
   location = "France"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
-  gravatarEmail = "thibaud.lepretre@gmail.com"
+  gravatarEmail = "cheningcai@outlook.com"
   # Your profile picture
   # Overwritten by your gravatar image if `author.gravatarEmail` is filled
   picture = "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
@@ -82,13 +82,13 @@ canonifyurls = true
   identifier = "github"
   name = "GitHub"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-github\"></i>"
-  url = "https://github.com/kakawait"
+  url = "https://github.com/chenyingcai"
 [[menu.links]]
   weight = 2
-  identifier = "stackoverflow"
-  name = "Stack Overflow"
-  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-stack-overflow\"></i>"
-  url = "https://stackoverflow.com/users/636472/kakawait"
+  identifier = "My Resume"
+  name = "My Resume"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-address-book\"></i>"
+  url = "/resume"
 
 [[menu.misc]]
   weight = 1
@@ -118,7 +118,7 @@ canonifyurls = true
   # If false it will flat categories.
   hierarchicalCategories = true
 
-  description = "Hugo tranquilpeak theme demo"
+  description = "Welcome to Yingcai's Blog"
 
   # Customization
   # Define the behavior of the sidebar
@@ -207,8 +207,8 @@ canonifyurls = true
     url = "/#about"
 
   # Customize link of author avatar in sidebar
-  # [params.sidebar.profile]
-  #   url = "/#about"
+  [params.sidebar.profile]
+     url = "/resume"
 
   # Customize copyright value "© 2017 <CUSTOMIZATION>. All Rights Reserved"
   # [params.footer]
