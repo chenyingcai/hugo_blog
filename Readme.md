@@ -168,13 +168,14 @@ archetypes  config.toml  content  data  layouts  public  static  themes
 ```
 然后设定 草稿预览命令
 ```sh
-alias hugopre="docker exec -it --rm -p 8000:8000 -v $PWD:/hugo/ chenyingcai/hugo_demo:v1 hugo server --bind=0.0.0.0 --baseURL=localhost:8000 --appendPort=false"
+alias hugopre="docker run -it --rm -p 8000:1313 -v $PWD:/hugo/ chenyingcai/hugo_demo:v1 hugo server --bind=0.0.0.0 --baseURL=localhost:8000 --appendPort=false"
 ```
-然后通过`hugopre`并打开 [https://localhost:8000](https://localhost:8000) 预览草稿
+**注意**: 是**`-p 8000:1313`** 一定是本地宿主机8000映射docker 镜像 的 1313
+然后通过`hugopre`并打开 [localhost:8000](localhost:8000) 预览草稿
 
 设定发布命令
 ```sh
-alias hugobuild="docker exec -it --rm -p 8000:8000 -v $PWD:/hugo/ chenyingcai/hugo_demo:v1 hugo"
+alias hugobuild="docker run -it --rm -p 8000:1313 -v $PWD:/hugo/ chenyingcai/hugo_demo:v1 hugo"
 ```
 通过`hugobuild` 发布到`public`中
 
