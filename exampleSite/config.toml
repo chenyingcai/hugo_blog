@@ -208,7 +208,7 @@ canonifyurls = true
 
   # Customize link of author avatar in sidebar
   [params.sidebar.profile]
-     url = "/resume"
+     url = "/#about"
 
   # Customize copyright value "© 2017 <CUSTOMIZATION>. All Rights Reserved"
   # [params.footer]
