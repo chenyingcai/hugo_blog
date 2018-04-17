@@ -29,7 +29,7 @@ svn checkout https://github.com/chenyingcai/hugo_blog/trunk/tranquilpeak $PWD/re
 echo "下载demo文档"
 svn checkout https://github.com/chenyingcai/hugo_blog/trunk/exampleSite $PWD/resource/exampleSite
 echo "创建copy样本shell文件"
-echo -e "#! /bin/sh\ncp -rf /example/* /hugo/\nhugo server --bind=0.0.0.0 --appendPort=false --baseURL=\$BASE_URL" > democopy.sh
+echo -e "#! /bin/sh\ncp -rf /example/* /hugo/" > democopy.sh
 echo "创建DockerFile:Dockerfile_${REPONAME}"
 echo """FROM chenyingcai/hugo_busybox:v1
 ENV BASE_URL=$BASE_URL
