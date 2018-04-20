@@ -196,3 +196,59 @@ hugo server --bind=0.0.0.0 --baseURL=localhost:1313 --appendPort=false
   我们在发布public的时候, 如果直接使用`hugo`命令, 可能会造成发布的网页出现混乱, 也就是, 我们直接用浏览器浏览public下的index.html, 会发现与我们上一步通过hugo server 服务器并在浏览器中查看到的网页, 两者是不一样的, 造成这个结果的原因是,在config.toml 中, 我们设定的baseURL=https://example.com有关, 那么我们在本地预览时应该改为对应的本地宿主机的URL, 这里我们设定为localhost:8000, 而在我们要发布到自己的github page时, 应该改为自己的网页, 这里我设定自己的网页地址:https://chenyingcai.github.io/, 然后再hugo 构建public, 最后上传github
 
 **一个比较合适的方法是: 将config.toml中的baseURL="https://chenyingcai.github.io/" , 预览自己的草稿时, 直接使用hugo server --baseURL=localhost:8000等等构建预览**
+
+## 5. 使用MathJav
+
+操作参照了[divadnojnarg](https://divadnojnarg.github.io/blog/mathjax/) 的文章. 
+
+### 5.1 下载Mathjav的js包, 
+
+``git clone https://github.com/mathjax/MathJax.git MathJax``
+
+然后将 Mathjav 包放到主题目录中static/js下, 在这我们是theme/tranquilpeak/static/js/
+
+这里有一个方法识别Mathjav的引用路径在哪, 我们可以先构建发布blog, 然后在发布blog的public目录下, 我们可以容易发现, 在主题文件夹下的static中的文件也是直接复制到的
+是blog的发布位置的根目录下, 因此我们可以知道要引用Mathjav, 使用的地址应该是/js/Mathjav/config
+
+### 5.2 在模板目录的partial目录下创建一个 ![Mathjav_support.html]() 的文件, 在里面输入
+
+```js
+<script type="text/javascript" async
+  src="/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  // Autonumbering by mathjax
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+```
+
+之后在`/theme/tranquilpeak/layouts/partials/post/header.html` 中的最后末尾[</div>]()前加上一句**`{{ partial "Mathjav_support.html" . }}`**
+
+至此, 我们就可以使用latex来渲染文中的公式了
+
+这里有一些公式使用时的注意事项
+
+- 不要用`\sum_` 而是用 `\sum\_` 
+- 大括号不是 `\left\{`, 使用`\left\\{`
+- 使用`\begin{cases}`来替换`\begin{align}`
