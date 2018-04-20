@@ -252,3 +252,4 @@ hugo server --bind=0.0.0.0 --baseURL=localhost:1313 --appendPort=false
 - 不要用`\sum_` 而是用 `\sum\_` 
 - 大括号不是 `\left\{`, 使用`\left\\{`
 - 使用`\begin{cases}`来替换`\begin{align}`
+- 新行使用`\\\\`或者`\newline`
