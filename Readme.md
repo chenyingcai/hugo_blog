@@ -243,9 +243,13 @@ hugo server --bind=0.0.0.0 --baseURL=localhost:1313 --appendPort=false
 </script>
 ```
 
-之后在`/theme/tranquilpeak/layouts/partials/post/header.html` 中的最后末尾[</div>]()前加上一句**`{{ partial "Mathjav_support.html" . }}`**
-
-至此, 我们就可以使用latex来渲染文中的公式了
+之后在`/theme/tranquilpeak/layouts/partials/post/header.html` 中的最后末尾[</div>]()前加上: 
+```{{ if .Params.Mathjax }}
+      {{ partial "Mathjav_support.html" . }}
+  {{ end }}
+```
+在每一篇post定义Mathjax: true 开关来选着文件需不需要开启mathjax
+至此, 我们就可以使用Mathjax来渲染文中的公式了
 
 这里有一些公式使用时的注意事项
 

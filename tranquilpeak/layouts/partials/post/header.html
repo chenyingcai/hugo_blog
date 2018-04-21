@@ -11,5 +11,7 @@
     </h1>
   {{ end }}
   {{ partial "post/meta.html" . }}
-  {{ partial "Mathjav_support.html" . }}
+  {{ if .Params.Mathjax }}
+      {{ partial "Mathjav_support.html" . }}
+  {{ end }}
 </div>
