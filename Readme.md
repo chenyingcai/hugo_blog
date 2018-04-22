@@ -244,9 +244,10 @@ hugo server --bind=0.0.0.0 --baseURL=localhost:1313 --appendPort=false
 ```
 
 之后在`/theme/tranquilpeak/layouts/partials/post/header.html` 中的最后末尾[</div>]()前加上: 
-```{{ if .Params.Mathjax }}
+```
+{{ if .Params.Mathjax }}
       {{ partial "Mathjax_support.html" . }}
-  {{ end }}
+{{ end }}
 ```
 在每一篇post定义Mathjax: true 开关来选着文件需不需要开启mathjax
 至此, 我们就可以使用Mathjax来渲染文中的公式了
@@ -270,22 +271,24 @@ curl -o bibtexjs.js https://raw.githubusercontent.com/pcooksey/bibtex-js/master/
 ```
 
 在`/theme/tranquilpeak/layouts/partials/post/header.html` 中的最后末尾添加开关
-```{{ if .Params.bibtexjs }}
+```
+{{ if .Params.bibtexjs }}
       <script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/b81606e85986fa8ad0eb66954493bc1c0b3d7ab1/src/bibtex_js.js"></script>
-  {{ end }}
+{{ end }}
 ```
 
 或者如果已经下载了相应的js文件的话
 
-```{{ if .Params.bibtexjs }}
+```
+{{ if .Params.bibtexjs }}
       <script type="text/javascript" src="/js/bibtexjs.js"></script>
-  {{ end }}
+{{ end }}
 ```
 在每一篇post定义bibtexjs: true 开关来选着文件需不需要开启bibtexjs
 
 ### 6.1 关于bibtex的模板
-我们在可以在目录下下载`bibtex-js-demo.html` 和 `bibtexjs.js`
-在浏览器中打开bibtex-js-demo.html, 然后把我们自己的bibtex内容复制到bibtex input框内
+我们在可以在目录下下载 [bibtex-js-demo.html](https://github.com/chenyingcai/hugo_blog/blob/master/bibtexjs/bibtex-js-demo.html) 和 [bibtexjs.js](https://github.com/chenyingcai/hugo_blog/blob/master/bibtexjs/bibtexjs.js)
+在浏览器中打开[bibtex-js-demo.html](https://github.com/chenyingcai/hugo_blog/blob/master/bibtexjs/bibtex-js-demo.html), 然后把我们自己的bibtex内容复制到bibtex input框内
 
 然后在template里面定制自己的模板
 
@@ -316,4 +319,4 @@ curl -o bibtexjs.js https://raw.githubusercontent.com/pcooksey/bibtex-js/master/
 ### 6.2 管理文献
 
 可以将自己所引用到的各类文献统一管理在一个sample.bib中
-然后使用/bibtexjs/demo.html管理, 查询自己的文献库中的各类文献
+然后使用[/bibtexjs/demo.html](https://github.com/chenyingcai/hugo_blog/blob/master/bibtexjs/demo.html)管理, 查询自己的文献库中的各类文献
