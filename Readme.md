@@ -197,20 +197,20 @@ hugo server --bind=0.0.0.0 --baseURL=localhost:1313 --appendPort=false
 
 **一个比较合适的方法是: 将config.toml中的baseURL="https://chenyingcai.github.io/" , 预览自己的草稿时, 直接使用hugo server --baseURL=localhost:8000等等构建预览**
 
-## 5. 使用MathJav
+## Mathjax
 
 操作参照了[divadnojnarg](https://divadnojnarg.github.io/blog/mathjax/) 的文章. 
 
-### 5.1 下载Mathjav的js包, 
+### 5.1 下载Mathjax的js包, 
 
 ``git clone https://github.com/mathjax/MathJax.git MathJax``
 
-然后将 Mathjav 包放到主题目录中static/js下, 在这我们是theme/tranquilpeak/static/js/
+然后将 Mathjax 包放到主题目录中static/js下, 在这我们是theme/tranquilpeak/static/js/
 
-这里有一个方法识别Mathjav的引用路径在哪, 我们可以先构建发布blog, 然后在发布blog的public目录下, 我们可以容易发现, 在主题文件夹下的static中的文件也是直接复制到的
-是blog的发布位置的根目录下, 因此我们可以知道要引用Mathjav, 使用的地址应该是/js/Mathjav/config
+这里有一个方法识别Mathjax的引用路径在哪, 我们可以先构建发布blog, 然后在发布blog的public目录下, 我们可以容易发现, 在主题文件夹下的static中的文件也是直接复制到的
+是blog的发布位置的根目录下, 因此我们可以知道要引用Mathjax, 使用的地址应该是/js/Mathjax/config
 
-### 5.2 在模板目录的partial目录下创建一个 ![Mathjav_support.html]() 的文件, 在里面输入
+### 5.2 在模板目录的partial目录下创建一个 ![Mathjax_support.html]() 的文件, 在里面输入
 
 ```js
 <script type="text/javascript" async
@@ -245,7 +245,7 @@ hugo server --bind=0.0.0.0 --baseURL=localhost:1313 --appendPort=false
 
 之后在`/theme/tranquilpeak/layouts/partials/post/header.html` 中的最后末尾[</div>]()前加上: 
 ```{{ if .Params.Mathjax }}
-      {{ partial "Mathjav_support.html" . }}
+      {{ partial "Mathjax_support.html" . }}
   {{ end }}
 ```
 在每一篇post定义Mathjax: true 开关来选着文件需不需要开启mathjax
@@ -257,3 +257,63 @@ hugo server --bind=0.0.0.0 --baseURL=localhost:1313 --appendPort=false
 - 大括号不是 `\left\{`, 使用`\left\\{`
 - 使用`\begin{cases}`来替换`\begin{align}`
 - 新行使用`\\\\`或者`\newline`
+
+## 6. 使用bibtexjs
+与[使用Mathjax](#Mathjax)一样, 我们先加载相应的js文档
+
+```html
+<script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/b81606e85986fa8ad0eb66954493bc1c0b3d7ab1/src/bibtex_js.js"></script>
+```
+或者
+```sh
+curl -o bibtexjs.js https://raw.githubusercontent.com/pcooksey/bibtex-js/master/src/bibtex_js.js
+```
+
+在`/theme/tranquilpeak/layouts/partials/post/header.html` 中的最后末尾添加开关
+```{{ if .Params.bibtexjs }}
+      <script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/b81606e85986fa8ad0eb66954493bc1c0b3d7ab1/src/bibtex_js.js"></script>
+  {{ end }}
+```
+
+或者如果已经下载了相应的js文件的话
+
+```{{ if .Params.bibtexjs }}
+      <script type="text/javascript" src="/js/bibtexjs.js"></script>
+  {{ end }}
+```
+在每一篇post定义bibtexjs: true 开关来选着文件需不需要开启bibtexjs
+
+### 6.1 关于bibtex的模板
+我们在可以在目录下下载`bibtex-js-demo.html` 和 `bibtexjs.js`
+在浏览器中打开bibtex-js-demo.html, 然后把我们自己的bibtex内容复制到bibtex input框内
+
+然后在template里面定制自己的模板
+
+在rendered 里看自己定制模板渲染后的效果
+
+使用的话如下在自己要用到bibtex的html文档中输入
+
+```html
+# 引入 jquery 模块
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+# 引入bibtexjs.js 渲染模块
+<script src="bibtexjs.js" type="text/javascript" charset="utf-8"></script>
+# 外部引入自己的bib文档里面有自己在文章中参考的各类文章
+<bibtex src="sample.bib"></bibtex>
+
+<div class="bibtex_structure"> # 定义参考目录显示的框架 详见: [bibtex-js-wiki](https://github.com/pcooksey/bibtex-js/blob/master/wiki/styles.md)
+  <div class="sections bibtextypekey">
+      <div class="section @article" title="Refered Articles"></div> # 最先显示key为@article的章节, 章节名称为refered articles
+      <div class="section @book" title="Books"></div>
+      <div class="section @inproceedings" title="Conference and Workshop Papers"></div>
+      <div class="section @misc|@phdthesis|@mastersthesis|@bachelorsthesis|@techreport" title="Other Publications"></div> # key为misc 等等的归为other publication章节
+      <div class="templates"> # 这里输入自己在前面bibtex-js-demo.html中定制的模板
+      </div>
+  </div>
+</div>
+```
+
+### 6.2 管理文献
+
+可以将自己所引用到的各类文献统一管理在一个sample.bib中
+然后使用/bibtexjs/demo.html管理, 查询自己的文献库中的各类文献
